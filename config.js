@@ -13,7 +13,8 @@ exports.config  =  {
     // to protractor (in this example conf.js).
     // They may include glob patterns.
     suites: {
-        Jasmine: 'spec/jasmine/dataDrivenSpec.js'
+        Jasmine: 'spec/jasmine/*.js',
+        pageObject: 'spec/pageObjectTest/flowTest.js'
     },
     //specs: 'spec.js',
     // Options to be passed to Jasmine-node.
@@ -22,5 +23,7 @@ exports.config  =  {
     },
     onPrepare: function () {
         global.using = using;
+        global.ignoreSynchronization = true;
+        global.pageObjectDir = __dirname+"/pageObject"
     },
 }; 
