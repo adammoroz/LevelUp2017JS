@@ -14,7 +14,8 @@ exports.config  =  {
     // They may include glob patterns.
     suites: {
         Jasmine: 'spec/jasmine/*.js',
-        pageObject: 'spec/pageObjectTest/flowTest.js'
+        //pageObject: 'spec/pageObjectTest/flowTest.js',
+        pageObject: 'spec/pageObjectTest/addToCartTest.js'
     },
     //specs: 'spec.js',
     // Options to be passed to Jasmine-node.
