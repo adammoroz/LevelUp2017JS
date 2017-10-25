@@ -57,13 +57,14 @@ describe('AddToCart tests', function () {
         topProductExample.cartButton.click();
     });
     it('should click Cart button', function () {
-        topProductExample.popupImage.isDisplayed();
+        browser.wait(function () {
+            return topProductExample.popupImage.isDisplayed()
+        }).then(function () {
+            topProductExample.clickCloseButton.click();
+        });
         topProductExample.cartLink.click();
-        topProductExample.cartLink.click();
-        expect(browser.getTitle()).toEqual('Order - My Store');
     });
     it('should see same product as selected', function () {
-        cart.selectedProduct.isDisplayed();
         expect(cart.selectedProduct.getText()).toEqual('Faded Short Sleeve T-shirts');
     });
     it('price on cart should be equal to price of selected product', function () {
