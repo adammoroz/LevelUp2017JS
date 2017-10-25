@@ -15,12 +15,12 @@ describe('ContuctUs tests',  function  () {
     });
     it('should have a title', function () {
         browser.get(contactUs.URL);
-        expect(contactUs.customerService.getText()).toEqual('CUSTOMER SERVICE - CONTACT US');
+        expect(contactUs.customerService.isDisplayed()).toBe(true);
         }); 
     it('should display Subject Heading Dropdown', function () {
-        expect(contactUs.subjectHeading.isPresent()).toBe(true);
+        expect(contactUs.subjectHeading.isDisplayed()).toBe(true);
     });
     it('should display Send Button', function () {
-        expect(contactUs.sendButton.isPresent()).toBe(true);
+        expect(contactUs.sendButton.isDisplayed()).toBe(true);
     });
 });
