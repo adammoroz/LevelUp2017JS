@@ -45,23 +45,28 @@ describe('AddToCart tests', function () {
     });
     it('condition of Product example should be new', function () {
         expect(topProductExample.condition.getText()).toEqual('New');
+        topProductExample.productPrice.getText().then(function (result) {
+            price = result;
+        });
     });
     it('should click m size on dropdown list', function () {
         topProductExample.sizeDropDown.click();
         topProductExample.sizeM.click();
     });
-    it('should click Add to cart button', function() {
+    it('should click Add to cart button', function () {
         topProductExample.cartButton.click();
     });
-    it('should click Cart button', function() {
+    it('should click Cart button', function () {
         topProductExample.popupImage.isDisplayed();
         topProductExample.cartLink.click();
         topProductExample.cartLink.click();
         expect(browser.getTitle()).toEqual('Order - My Store');
     });
-    it('should see same product as selected', function() {
+    it('should see same product as selected', function () {
         cart.selectedProduct.isDisplayed();
         expect(cart.selectedProduct.getText()).toEqual('Faded Short Sleeve T-shirts');
     });
-    
+    it('price on cart should be equal to price of selected product', function () {
+        expect(cart.cartPrice.getText()).toEqual(price);
+    });
 });
