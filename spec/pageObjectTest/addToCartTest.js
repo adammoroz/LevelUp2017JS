@@ -2,7 +2,7 @@ var HomePage = require(pageObjectDir + "/homePage.js");
 var Women = require(pageObjectDir + "/women.js");
 var Tops = require(pageObjectDir + "/tops.js");
 var TopProductExample = require(pageObjectDir + "/topProductExample.js");
-var Cart = require(pageObjectDir + "/cart.js")
+var Cart = require(pageObjectDir + "/cart.js");
 
 var homePage = new HomePage();
 var women = new Women();
@@ -10,24 +10,17 @@ var tops = new Tops();
 var topProductExample = new TopProductExample();
 var cart = new Cart();
 
-var isDescriptionLongerThan = function (isLongerThan) {
-    return new Promise(function (resolve) {
-        topProductExample.description.getText().then(function (text) {
-            resolve(text.length > isLongerThan);
-        });
-    })
-};
+beforeAll( function () {
+    browser.get(homePage.URL);
+});
 
 describe('AddToCart tests', function () {
-    it('open page', function () {
-        browser.get(homePage.URL);
-    });
     it('should click Women link', function () {
-        homePage.womenLink.click();
+        homePage.womenLinkClick();
         expect(browser.getTitle()).toEqual('Women - My Store');
     });
     it('should have a label Women', function () {
-        expect(women.womenLabel.getText()).toEqual('WOMEN');
+        expect(women.getWomenLabel()).toEqual('WOMEN');
     });
     it('should click Tops link', function () {
         women.topsLink.click();
@@ -41,7 +34,7 @@ describe('AddToCart tests', function () {
         expect(browser.getTitle()).toEqual('Faded Short Sleeve T-shirts - My Store');
     });
     it('should see min 8length description', function () {
-        expect(isDescriptionLongerThan(8)).toBe(true);
+        expect(topProductExample.isDescriptionLongerThan(8)).toBe(true);
     });
     it('condition of Product example should be new', function () {
         expect(topProductExample.condition.getText()).toEqual('New');
@@ -50,19 +43,13 @@ describe('AddToCart tests', function () {
         });
     });
     it('should click m size on dropdown list', function () {
-        topProductExample.sizeDropDown.click();
-        topProductExample.sizeM.click();
+        topProductExample.clickSizeM();
     });
     it('should click Add to cart button', function () {
         topProductExample.cartButton.click();
     });
     it('should click Cart button', function () {
-        browser.wait(function () {
-            return topProductExample.popupImage.isDisplayed()
-        }).then(function () {
-            topProductExample.clickCloseButton.click();
-        });
-        topProductExample.cartLink.click();
+        topProductExample.clickCartButtonAfterClosePopup();
     });
     it('should see same product as selected', function () {
         expect(cart.selectedProduct.getText()).toEqual('Faded Short Sleeve T-shirts');

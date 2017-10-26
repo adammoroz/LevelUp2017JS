@@ -1,4 +1,4 @@
-var TopProductExample = function TopProductExample(){
+var TopProductExample = function TopProductExample() {
     this.URL = 'http://automationpractice.com/index.php?id_product=1&controller=product';
     this.description = element(By.css('#short_description_content > p'));
     this.condition = element(By.css('#product_condition > span'));
@@ -10,6 +10,30 @@ var TopProductExample = function TopProductExample(){
     this.cartLink = element(By.css('#header > div:nth-child(3) > div > div > div:nth-child(3) > div > a > b'));
     this.productPrice = element(By.css('#our_price_display'));
 
+
+    this.isDescriptionLongerThan = function (minLength) {
+        var that = this;
+        return new Promise(function (resolve) {
+            that.description.getText().then(function (text) {
+                resolve(text.length > minLength);
+            });
+        })
+    };
+
+    this.clickSizeM = function () {
+        this.sizeDropDown.click();
+        this.sizeM.click();
+    }
+
+    this.clickCartButtonAfterClosePopup = function () {
+        var that = this;
+        browser.wait(function () {
+            return that.popupImage.isDisplayed()
+        }).then(function () {
+            that.clickCloseButton.click();
+        });
+        that.cartLink.click();
+    }
 }
 
 module.exports = TopProductExample;
